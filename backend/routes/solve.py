@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.gemini import solve_math_text, solve_math_image
+from services.groq_service import solve_math_text, solve_math_image
 
 # Create router
 router = APIRouter()
