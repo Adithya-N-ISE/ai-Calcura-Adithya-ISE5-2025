@@ -61,6 +61,11 @@ function App() {
       let result: { steps: string[], answer: string } | undefined
 
       if (mode === 'type') {
+        if (!text.trim()) {
+          setSteps(['Please type a math problem first.'])
+          setIsLoading(false)
+          return
+        }
         result = await solveText(text)
       }
       else {
@@ -86,11 +91,12 @@ function App() {
         setAnswer(result.answer)
       }
 
-    } catch (error) {
-      console.error('Error solving:', error)
-      setSteps(['Something went wrong. Please try again.'])
-      setAnswer('')
-    } finally {
+    } catch (error: any) {
+        console.error('Error solving:', error)
+        setSteps([error.message || 'Something went wrong. Please try again.'])
+        setAnswer('')
+      }
+    finally {
       setIsLoading(false)
     }
   }

@@ -14,6 +14,7 @@ def solve_math_text(problem: str) -> str:
     STEP 2: [explanation]
     STEP 3: [explanation]
     ANSWER: [final answer]
+    Important: Do NOT use LaTeX or dollar signs. Use plain text only.
     """
     try:
         response = client.chat.completions.create(
@@ -45,6 +46,7 @@ ANSWER: No input"""
     STEP 2: [explanation]
     STEP 3: [explanation]
     ANSWER: [final answer]
+    Important: Do NOT use LaTeX or dollar signs. Use plain text only.
     """
 
     try:
