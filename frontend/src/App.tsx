@@ -39,7 +39,7 @@ function App() {
     }
   }
 
-  // Delete everything
+  // Delete everything ok
   const handleDelete = () => {
     if (mode === 'type') {
       setText('')
@@ -51,7 +51,7 @@ function App() {
     canvasRef.current.renderAll()
   }
 
-  // Solve — sends to backend
+  // Solve sends to backend
   const handleSolve = async () => {
     setIsLoading(true)
     setSteps([])
@@ -62,18 +62,25 @@ function App() {
 
       if (mode === 'type') {
         result = await solveText(text)
-      } else {
+      }
+      else {
+      // Checking if canvas is empty or not ok..
+        const objects = canvasRef.current?.getObjects()
+        if (!objects || objects.length === 0) {
+          setSteps(['Please draw something first.'])
+          setIsLoading(false)
+          return
+        }
         const imageData = canvasRef.current?.toDataURL({
           format: 'png',
-          multiplier: 1  // ✅ fixed: was 0 which exported blank image
+          multiplier: 1
         })
         if (!imageData) {
           setIsLoading(false)
           return
         }
-        result = await solveImage(imageData) // ✅ send full data URI, backend strips prefix
+        result = await solveImage(imageData)
       }
-
       if (result) {
         setSteps(result.steps)
         setAnswer(result.answer)
